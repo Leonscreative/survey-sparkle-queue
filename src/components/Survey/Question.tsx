@@ -8,19 +8,10 @@ interface BaseQuestionProps {
   id: string;
   title: string;
   type?: string;
+  options?: string[];
 }
 
-interface StandardQuestionProps extends BaseQuestionProps {
-  options: string[];
-  type?: never;
-}
-
-interface SpecialQuestionProps extends BaseQuestionProps {
-  type: string;
-  options?: never;
-}
-
-type QuestionProps = StandardQuestionProps | SpecialQuestionProps;
+type QuestionProps = BaseQuestionProps;
 
 const Question = ({ id, title, options, type }: QuestionProps) => {
   const { setCurrentStep, setAnswer, currentStep, goBack } = useSurvey();

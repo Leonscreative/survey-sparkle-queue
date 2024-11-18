@@ -4,7 +4,6 @@ import ProgressBar from "@/components/Survey/ProgressBar";
 import Question from "@/components/Survey/Question";
 import Congrats from "@/components/Survey/Congrats";
 import Waitlist from "@/components/Survey/Waitlist";
-import PricingQuestion from "@/components/Survey/PricingQuestion";
 
 const questions = [
   {
@@ -80,11 +79,7 @@ const SurveyContent = () => {
         <div className="mt-12">
           <AnimatePresence mode="wait">
             {currentStep < questions.length ? (
-              questions[currentStep].type === "pricing" ? (
-                <PricingQuestion key="pricing" id={questions[currentStep].id} title={questions[currentStep].title} />
-              ) : (
-                <Question key={currentStep} {...questions[currentStep]} />
-              )
+              <Question key={currentStep} {...questions[currentStep]} />
             ) : currentStep === questions.length ? (
               <Congrats key="congrats" />
             ) : (

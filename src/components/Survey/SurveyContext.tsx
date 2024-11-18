@@ -4,9 +4,10 @@ import { db } from "@/lib/firebase";
 
 interface SurveyContextType {
   currentStep: number;
-  answers: Record<string, string>;
+  answers: Record<string, string | string[]>;
   setCurrentStep: (step: number) => void;
-  setAnswer: (questionId: string, answer: string) => void;
+  setAnswer: (questionId: string, answer: string | string[]) => void;
+  goBack: () => void;
   submitSurvey: (email: string) => Promise<void>;
 }
 
@@ -14,10 +15,16 @@ const SurveyContext = createContext<SurveyContextType | undefined>(undefined);
 
 export const SurveyProvider = ({ children }: { children: React.ReactNode }) => {
   const [currentStep, setCurrentStep] = useState(0);
-  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [answers, setAnswers] = useState<Record<string, string | string[]>>({});
 
-  const setAnswer = (questionId: string, answer: string) => {
+  const setAnswer = (questionId: string, answer: string | string[]) => {
     setAnswers((prev) => ({ ...prev, [questionId]: answer }));
+  };
+
+  const goBack = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+    }
   };
 
   const submitSurvey = async (email: string) => {
@@ -33,7 +40,7 @@ export const SurveyProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <SurveyContext.Provider
-      value={{ currentStep, answers, setCurrentStep, setAnswer, submitSurvey }}
+      value={{ currentStep, answers, setCurrentStep, setAnswer, goBack, submitSurvey }}
     >
       {children}
     </SurveyContext.Provider>

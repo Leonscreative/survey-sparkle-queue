@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useSurvey } from "./SurveyContext";
+import MultiSelectQuestion from "./MultiSelectQuestion";
 
 interface QuestionProps {
   id: string;
@@ -9,7 +10,12 @@ interface QuestionProps {
 }
 
 const Question = ({ id, title, options }: QuestionProps) => {
-  const { setCurrentStep, setAnswer, currentStep } = useSurvey();
+  const { setCurrentStep, setAnswer, currentStep, goBack } = useSurvey();
+
+  // If it's the last question (services), render the MultiSelectQuestion component
+  if (id === "additional-services") {
+    return <MultiSelectQuestion id={id} title={title} options={options} />;
+  }
 
   const handleAnswer = (answer: string) => {
     setAnswer(id, answer);
@@ -36,6 +42,15 @@ const Question = ({ id, title, options }: QuestionProps) => {
           </Button>
         ))}
       </div>
+      {currentStep > 0 && (
+        <Button
+          variant="ghost"
+          onClick={goBack}
+          className="mt-4 text-zinc-600 hover:text-zinc-900"
+        >
+          Go Back
+        </Button>
+      )}
     </motion.div>
   );
 };

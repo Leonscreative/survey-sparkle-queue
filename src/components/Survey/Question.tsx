@@ -2,19 +2,35 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useSurvey } from "./SurveyContext";
 import MultiSelectQuestion from "./MultiSelectQuestion";
+import PricingQuestion from "./PricingQuestion";
 
-interface QuestionProps {
+interface BaseQuestionProps {
   id: string;
   title: string;
-  options: string[];
+  type?: string;
 }
 
-const Question = ({ id, title, options }: QuestionProps) => {
+interface StandardQuestionProps extends BaseQuestionProps {
+  options: string[];
+  type?: never;
+}
+
+interface SpecialQuestionProps extends BaseQuestionProps {
+  type: string;
+  options?: never;
+}
+
+type QuestionProps = StandardQuestionProps | SpecialQuestionProps;
+
+const Question = ({ id, title, options, type }: QuestionProps) => {
   const { setCurrentStep, setAnswer, currentStep, goBack } = useSurvey();
 
-  // If it's the last question (services), render the MultiSelectQuestion component
+  if (type === "pricing") {
+    return <PricingQuestion id={id} title={title} />;
+  }
+
   if (id === "additional-services") {
-    return <MultiSelectQuestion id={id} title={title} options={options} />;
+    return <MultiSelectQuestion id={id} title={title} options={options || []} />;
   }
 
   const handleAnswer = (answer: string) => {
@@ -31,7 +47,7 @@ const Question = ({ id, title, options }: QuestionProps) => {
     >
       <h2 className="text-3xl font-medium text-zinc-900">{title}</h2>
       <div className="grid gap-4 w-full">
-        {options.map((option) => (
+        {options?.map((option) => (
           <Button
             key={option}
             variant="outline"

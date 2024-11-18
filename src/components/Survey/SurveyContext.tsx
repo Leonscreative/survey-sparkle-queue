@@ -2,11 +2,17 @@ import React, { createContext, useContext, useState } from "react";
 import { ref, push } from "firebase/database";
 import { db } from "@/lib/firebase";
 
+type AnswerType = string | string[] | {
+  dailyPass: number;
+  monthlyPass: number;
+  longTerm: string;
+};
+
 interface SurveyContextType {
   currentStep: number;
-  answers: Record<string, string | string[]>;
+  answers: Record<string, AnswerType>;
   setCurrentStep: (step: number) => void;
-  setAnswer: (questionId: string, answer: string | string[]) => void;
+  setAnswer: (questionId: string, answer: AnswerType) => void;
   goBack: () => void;
   submitSurvey: (email: string) => Promise<void>;
 }
@@ -15,9 +21,9 @@ const SurveyContext = createContext<SurveyContextType | undefined>(undefined);
 
 export const SurveyProvider = ({ children }: { children: React.ReactNode }) => {
   const [currentStep, setCurrentStep] = useState(0);
-  const [answers, setAnswers] = useState<Record<string, string | string[]>>({});
+  const [answers, setAnswers] = useState<Record<string, AnswerType>>({});
 
-  const setAnswer = (questionId: string, answer: string | string[]) => {
+  const setAnswer = (questionId: string, answer: AnswerType) => {
     setAnswers((prev) => ({ ...prev, [questionId]: answer }));
   };
 

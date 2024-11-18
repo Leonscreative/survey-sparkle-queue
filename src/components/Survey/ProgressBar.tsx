@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const ProgressBar = () => {
   const { currentStep } = useSurvey();
-  const totalSteps = 7; // 5 questions + congrats + waitlist
+  const totalSteps = 8; // 6 questions + congrats + waitlist
 
   return (
     <div className="w-full h-1 bg-zinc-100 rounded-full overflow-hidden">

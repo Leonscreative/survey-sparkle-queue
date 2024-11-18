@@ -7,40 +7,59 @@ import Waitlist from "@/components/Survey/Waitlist";
 
 const questions = [
   {
-    id: "role",
-    title: "What best describes your role?",
-    options: ["Developer", "Designer", "Product Manager", "Founder", "Other"],
-  },
-  {
-    id: "experience",
-    title: "How many years of experience do you have?",
-    options: ["0-2 years", "3-5 years", "6-10 years", "10+ years"],
-  },
-  {
-    id: "team-size",
-    title: "What's your team size?",
-    options: ["Solo", "2-5", "6-20", "21-100", "100+"],
-  },
-  {
-    id: "challenges",
-    title: "What's your biggest challenge?",
+    id: "work-situation",
+    title: "What is your current work situation?",
     options: [
-      "Time management",
-      "Team collaboration",
-      "Technical complexity",
-      "Resource constraints",
+      "Full-time remote worker",
+      "Freelancer",
+      "Digital nomad",
+      "Business owner",
       "Other",
     ],
   },
   {
-    id: "goals",
-    title: "What's your primary goal for the next year?",
+    id: "stay-duration",
+    title: "How long do you typically stay in one location?",
     options: [
-      "Grow the team",
-      "Launch new products",
-      "Improve existing products",
-      "Learn new skills",
+      "Less than 1 month",
+      "1-3 months",
+      "3-6 months",
+      "6+ months",
+    ],
+  },
+  {
+    id: "hua-hin-attraction",
+    title: "What attracts you to Hua Hin?",
+    options: [
+      "Beach lifestyle",
+      "Cost of living",
+      "Local culture",
+      "Weather",
+      "Infrastructure",
       "Other",
+    ],
+  },
+  {
+    id: "coworking-frequency",
+    title: "How often would you use a coworking space?",
+    options: [
+      "Daily",
+      "2-3 times per week",
+      "Weekly",
+      "Occasionally",
+    ],
+  },
+  {
+    id: "additional-services",
+    title: "Which services interest you most?",
+    options: [
+      "Professional networking events",
+      "Skill-sharing workshops",
+      "Social activities",
+      "Virtual office services",
+      "Storage lockers",
+      "Wide screen monitor",
+      "Printing/scanning services",
     ],
   },
 ];
